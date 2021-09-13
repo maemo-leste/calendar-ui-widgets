@@ -1,0 +1,23 @@
+Source: calendar-ui-widgets
+Priority: optional
+Maintainer: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+Build-Depends: debhelper (>= 11)
+Standards-Version: 4.1.3
+Section: libs
+Vcs-Browser: https://github.com/maemo-leste/calendar-ui-widgets
+Vcs-Git: https://github.com/maemo-leste/calendar-ui-widgets.git
+
+Package: calendar-ui-widgets-0-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends: calendar-ui-widgets-0 (= ${binary:Version}), ${misc:Depends}
+Description: Calendar UI Widgets
+ This package contains develpment files for Calendar UI Widgets
+
+Package: calendar-ui-widgets-0
+Architecture: any
+Multi-Arch: same
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Calendar UI Widgets
+ A ColorPicker UI Widget for Calendar and others

@@ -1,0 +1,41 @@
+/*** BEGIN file-header ***/
+#include "calendar-widgets-enum-gen.h"
+#include "config.h"
+/*** END file-header ***/
+
+/*** BEGIN file-production ***/
+
+/* enumerations from "@filename@" */
+#include "@filename@"
+/*** END file-production ***/
+
+/*** BEGIN value-header ***/
+
+static const G@Type@Value @enum_name@_values[] =
+{
+/*** END value-header ***/
+
+/*** BEGIN value-production ***/
+  { @VALUENAME@, "@VALUENAME@", "@valuenick@" },
+/*** END value-production ***/
+
+/*** BEGIN value-tail ***/
+  { 0, NULL, NULL }
+};
+
+GType
+@enum_name@_get_type (void)
+{
+  static volatile gsize g_@type@_type_id__volatile;
+
+  if (g_once_init_enter (&g_@type@_type_id__volatile))
+  {
+    GType g_@type@_type_id = g_@type@_register_static (
+      g_intern_static_string ("@EnumName@"), @enum_name@_values);
+
+    g_once_init_leave (&g_@type@_type_id__volatile, g_@type@_type_id);
+  }
+
+  return g_@type@_type_id__volatile;
+}
+/*** END value-tail ***/
