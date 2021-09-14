@@ -9,7 +9,8 @@ libcalendarui_widgets_la_LDFLAGS = \
 libcalendarui_widgets_la_SOURCES = \
 		$(calendarui_widgets_built_sources) \
 		pip-color-picker.c \
-		pip-calendar-color.c
+		pip-calendar-color.c \
+		pip-calendar-dialog.c
 
 calendarui_widgets_public_headers = \
 		calendar-ui-widgets.h \

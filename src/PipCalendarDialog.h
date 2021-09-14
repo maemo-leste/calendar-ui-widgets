@@ -41,8 +41,6 @@ struct _PipCalendarDialog
 {
 	GtkDialog                       parent_instance;
 
-	struct _PipCalendarDialogPrivate  *priv;
-
 	GtkWidget        *pannable_area;
 };
 
