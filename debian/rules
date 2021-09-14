@@ -5,8 +5,8 @@
 %:
 	dh $@ --with autoreconf
 
-DEB_BUILD_MAINT_OPTIONS = hardening=+all
-DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_CFLAGS_MAINT_APPEND  = -Wall -Werror
 
 override_dh_autoreconf:
 	dh_autoreconf --as-needed

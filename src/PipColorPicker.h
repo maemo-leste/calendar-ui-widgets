@@ -42,7 +42,6 @@ typedef struct _PipColorPickerClass            PipColorPickerClass;
 struct _PipColorPicker
 {
     GObject   parent_instance;
-    struct _PipColorPickerPrivate  *priv;
 };
 
 /**
