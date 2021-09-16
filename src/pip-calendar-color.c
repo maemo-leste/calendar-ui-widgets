@@ -346,7 +346,8 @@ create_calendar_color_pixbuf(PipCalendarColor color, gint width, gint height)
                            "48x48/hildon/");
     icon = icon_from_calendar_color(color);
   }
-  else if ((width == 102) && (HILDON_ICON_SIZE_FINGER == height))
+  else if ((width == CALENDAR_COLOR_SELECTION_ICON_WIDTH) &&
+           (HILDON_ICON_SIZE_FINGER == height))
   {
     path = g_strdup_printf("%s%s", "/usr/share/icons/hicolor/",
                            "scalable/hildon/");

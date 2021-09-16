@@ -94,9 +94,12 @@ void
 pip_calendar_dialog_reset_modal_widget_ptr (
 		PipCalendarDialog     *dialog);
 
+#if 0
+/* No such function is exported by the library */
 void
 pip_calendar_dialog_reset_modal_ptr(
 		PipCalendarDialog     *dialog);
+#endif
 
 GtkWidget*
 pip_calendar_dialog_get_modal_widget_ptr (

@@ -106,7 +106,8 @@ pip_color_picker_add_color(PipColorPicker *picker, PipCalendarColor color)
   g_return_if_fail(PIP_IS_COLOR_PICKER(picker));
 
   priv = PRIVATE(picker);
-  pixbuf = pip_calendar_color_create_pixbuf(color, 102,
+  pixbuf = pip_calendar_color_create_pixbuf(color,
+                                            CALENDAR_COLOR_SELECTION_ICON_WIDTH,
                                             HILDON_ICON_PIXEL_SIZE_FINGER);
   gtk_list_store_append(priv->list_store, &iter);
   gtk_list_store_set(priv->list_store, &iter,
@@ -188,7 +189,8 @@ pip_color_picker_run(PipColorPicker *picker)
   priv->dialog = GTK_WIDGET(dialog);
 
   pip_calendar_dialog_set_title(dialog, dgettext("calendar", "cal_fi_color"));
-  gtk_widget_set_size_request(GTK_WIDGET(dialog), -1, 149);
+  gtk_widget_set_size_request(GTK_WIDGET(dialog), -1,
+                              CALENDAR_COLOR_SELECTION_DIALOG_HEIGHT);
 
   priv->icon_view = hildon_gtk_icon_view_new(HILDON_UI_MODE_EDIT);
   gtk_icon_view_set_selection_mode(GTK_ICON_VIEW(priv->icon_view),
@@ -229,4 +231,22 @@ pip_color_picker_get_selected_color(PipColorPicker *picker)
   g_return_val_if_fail(PIP_IS_COLOR_PICKER(picker), PipCalendarColorInvalid);
 
   return PRIVATE(picker)->color;
+}
+
+PipCalendarColor
+pip_color_picker_select_color(PipCalendarColor highlight_color,
+                              PipColorPickerSet color_set)
+{
+  PipColorPicker *picker = PIP_COLOR_PICKER(pip_color_picker_new());
+  PipCalendarColor color;
+
+  g_return_val_if_fail(picker != NULL, PipCalendarColorInvalid);
+
+  pip_color_picker_add_all_colors(picker, color_set);
+  pip_color_picker_highlight_color(picker, highlight_color);
+  pip_color_picker_run(picker);
+  color = pip_color_picker_get_selected_color(picker);
+  g_object_unref(picker);
+
+  return color;
 }
