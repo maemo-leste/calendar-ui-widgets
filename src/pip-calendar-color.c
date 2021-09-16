@@ -19,6 +19,8 @@
 
 #include <hildon/hildon.h>
 
+#include "helper-widgets.h"
+
 #include "PipCalendarColor.h"
 
 typedef struct

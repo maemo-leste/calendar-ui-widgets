@@ -22,6 +22,7 @@
 
 #include "PipCalendarDialog.h"
 #include "calendar-widgets-enum-gen.h"
+#include "helper-widgets.h"
 
 #include "PipColorPicker.h"
 
