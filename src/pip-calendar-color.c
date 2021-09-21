@@ -26,7 +26,7 @@
 typedef struct
 {
   GdkColor color;
-  int draw_border;
+  gboolean draw_border;
 }
 color_info;
 
@@ -372,42 +372,54 @@ create_calendar_color_pixbuf(PipCalendarColor color, gint width, gint height)
 static GdkPixbuf *
 create_text_color_pixbuf(PipCalendarColor color, gint width, gint height)
 {
-  GdkPixbuf *pixbuf =
-    gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 8, width, height);
-  GdkPixmap *pixmap = gdk_pixmap_new(0, width, height, 16);
-  GdkGC *gc = gdk_gc_new(GDK_DRAWABLE(pixmap));
+  const color_info *info = get_color_info(color);
+  GdkPixbuf *pixbuf;
+  GStrv xpm, s;
+  int n_cols;
 
-  if (gc)
+  g_return_val_if_fail(info, NULL);
+
+  n_cols = info->draw_border ? 2 : 1;
+
+  xpm = g_new(gchar *, height + n_cols + 2);
+
+  s = xpm;
+  *s++ = g_strdup_printf("%d %d %d 1", width, height, n_cols);
+  *s++ = g_strdup_printf("f c #%06x", info->color.pixel >> 8);
+
+  if (info->draw_border)
   {
-    const color_info *info = get_color_info(color);
+    gchar *f = g_strnfill(width - 2, 'f');
+    gchar *line = g_strdup_printf("b%sb", f);
+    int i;
 
-    if (info)
-    {
-      GdkColormap *colormap;
+    g_free(f);
+    *s++ = g_strdup_printf("b c #%06x", border_color.pixel >> 8);
+    *s++ = g_strnfill(width, 'b');
 
-      gdk_gc_set_rgb_fg_color(gc, &info->color);
-      gdk_gc_set_fill(gc, GDK_SOLID);
-      gdk_draw_rectangle(GDK_DRAWABLE(pixmap), gc, TRUE, 0, 0, width, height);
+    for (i = 0; i < height - 2; i++)
+      *s++ = g_strdup(line);
 
-      if (info->draw_border)
-      {
-        gdk_gc_set_rgb_fg_color(gc, &border_color);
-        gdk_draw_rectangle(GDK_DRAWABLE(pixmap), gc, FALSE, 0, 0, width - 1,
-                           height - 1);
-      }
+    *s++ = g_strnfill(width, 'b');
 
-      colormap = gdk_drawable_get_colormap(GDK_DRAWABLE(pixmap));
+    g_free(line);
+  }
+  else
+  {
+    gchar *line = g_strnfill(width, 'f');
+    int i;
 
-      if (!colormap)
-        colormap = gdk_colormap_get_system();
+    for (i = 0; i < height; i++)
+      *s++ = g_strdup(line);
 
-      gdk_pixbuf_get_from_drawable(pixbuf, GDK_DRAWABLE(pixmap), colormap, 0, 0,
-                                   0, 0, width, height);
-      g_object_unref(gc);
-    }
+    g_free(line);
   }
 
-  gdk_drawable_unref(pixmap);
+  *s = NULL;
+
+  pixbuf = gdk_pixbuf_new_from_xpm_data((const char **)xpm);
+
+  g_strfreev(xpm);
 
   return pixbuf;
 }

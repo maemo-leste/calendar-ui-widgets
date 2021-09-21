@@ -110,6 +110,8 @@ pip_color_picker_add_color(PipColorPicker *picker, PipCalendarColor color)
   pixbuf = pip_calendar_color_create_pixbuf(color,
                                             CALENDAR_COLOR_SELECTION_ICON_WIDTH,
                                             HILDON_ICON_PIXEL_SIZE_FINGER);
+  g_return_if_fail(pixbuf);
+
   gtk_list_store_append(priv->list_store, &iter);
   gtk_list_store_set(priv->list_store, &iter,
                      COL_COLOR, color,
