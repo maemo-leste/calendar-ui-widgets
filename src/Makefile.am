@@ -1,7 +1,12 @@
+noinst_PROGRAMS = test-color-picker
+
+test_color_picker_CFLAGS = $(HILDON_CFLAGS)
+test_color_picker_LDFLAGS = $(HILDON_LIBS) -Wl,--no-undefined
+test_color_picker_LDADD = libcalendarui-widgets.la
+
 lib_LTLIBRARIES = libcalendarui-widgets.la
 
-libcalendarui_widgets_la_CFLAGS = \
-		$(HILDON_CFLAGS) -I$(srcdir)/../include
+libcalendarui_widgets_la_CFLAGS = $(HILDON_CFLAGS)
 
 libcalendarui_widgets_la_LDFLAGS = \
 		-Wl,--as-needed $(HILDON_LIBS) -Wl,--no-undefined
