@@ -62,9 +62,7 @@ static const GdkColor border_color = COLOR(3D, 3D, 3D);
 static const color_info *
 get_color_info(PipCalendarColor color)
 {
-  g_return_val_if_fail(color >= PipCalendarColorFirstColor &&
-                       color <= PipCalendarColorLastColor,
-                       NULL);
+  g_return_val_if_fail(color >= PipCalendarColorFirstColor, NULL);
   g_return_val_if_fail(color >= 0 &&
                        color <= (sizeof(colors) / sizeof(colors[0])),
                        NULL);
@@ -342,14 +340,15 @@ create_calendar_color_pixbuf(PipCalendarColor color, gint width, gint height)
   const char *icon;
   gchar *filename;
 
-  if ((width <= HILDON_ICON_SIZE_FINGER) && (height <= HILDON_ICON_SIZE_FINGER))
+  if ((width <= HILDON_ICON_PIXEL_SIZE_FINGER) &&
+      (height <= HILDON_ICON_PIXEL_SIZE_FINGER))
   {
     path = g_strdup_printf("%s%s", "/usr/share/icons/hicolor/",
                            "48x48/hildon/");
     icon = icon_from_calendar_color(color);
   }
   else if ((width == CALENDAR_COLOR_SELECTION_ICON_WIDTH) &&
-           (HILDON_ICON_SIZE_FINGER == height))
+           (height == HILDON_ICON_PIXEL_SIZE_FINGER))
   {
     path = g_strdup_printf("%s%s", "/usr/share/icons/hicolor/",
                            "scalable/hildon/");
