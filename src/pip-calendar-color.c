@@ -378,6 +378,7 @@ create_text_color_pixbuf(PipCalendarColor color, gint width, gint height)
   int n_cols;
 
   g_return_val_if_fail(info, NULL);
+  g_return_val_if_fail(width > 2 && height > 2, NULL);
 
   n_cols = info->draw_border ? 2 : 1;
 
