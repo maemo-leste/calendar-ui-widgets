@@ -1,3 +1,9 @@
+calendar-ui-widgets (0.9.5) unstable; urgency=medium
+
+  * Fix previous change
+
+ -- Merlijn Wajer <merlijn@wizzup.org>  Wed, 22 Jan 2025 11:10:36 +0100
+
 calendar-ui-widgets (0.9.4) unstable; urgency=medium
 
   * Do not use volatile keyword
